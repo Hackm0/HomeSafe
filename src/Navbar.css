@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Radio+Canada:ital,wght@0,300..700;1,300..700&display=swap');
+
+a {
+    text-decoration: none;
+    color: #4CAF50;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: #FFFFFF;
+    padding: 10px 20px;
+    color: #4CAF50;
+    font-family: 'Radio Canada', sans-serif;
+    width: 100vw;
+}
+
+.navbar-logo svg {
+    transform: scale(0.75) rotate(0deg);
+    transition: 0.5s;
+}
+
+.spinner:hover {
+    transform: scale(0.75) rotate(5deg);
+}
+
+.navbar-list {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.5s;
+    padding: 10px;
+}
