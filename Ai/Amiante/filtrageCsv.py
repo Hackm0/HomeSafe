@@ -27,9 +27,18 @@ def filter_columns(input_file, output_file):
     filtered_df.to_csv(output_file, index=False)
     print(f"Filtered file saved to '{output_file}'.")
 
+def quebecOnly(input_file, output_file) :
+    data = pd.read_csv(input_file)
+
+    data_quebec = data[data['Ville'] == 'Montréal']
+
+    # Exporter les données filtrées dans un nouveau fichier CSV
+    data_quebec.to_csv(output_file, index=False)
+
 # Specify input and output file paths
-input_file = "Ai\data\inaspac-niapspc-eng.csv"
-output_file = "Ai\data\data_amiante.csv"  # Replace with your desired output file path
+input_file = "Ai\data\Partie 3.csv"
+output_file = "Ai\data\Partie_3_clean.csv"  # Replace with your desired output file path
 
 # Call the function to filter columns
-filter_columns(input_file, output_file)
+#filter_columns(input_file, output_file)
+quebecOnly(input_file, output_file)
