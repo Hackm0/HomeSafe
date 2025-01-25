@@ -1,23 +1,93 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Node.js
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-
-# testing
-/coverage
-
-# production
-/build
-
-# misc
-.DS_Store
+# Environment files
+.env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# Log files
+*.log
+
+# Dependency directories
+bower_components/
+
+# Build directories
+build/
+dist/
+*.tgz
+
+# Coverage directories (from testing)
+coverage/
+
+# Test files
+*.test.js
+*.spec.js
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# macOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+
+# Optional npm cache directory
+.npm/
+
+# Miscellaneous
+*.bak
+*.tmp
+*.swp
+
+# .eslintcache (eslint cache file)
+.eslintcache
+
+# Parcel-bundler cache
+.cache/
+
+# Next.js build output
+.next/
+
+# TypeScript build output
+*.tsbuildinfo
+
+# Tye (temporary build files)
+.tye/
+
+# SASS / SCSS build folders
+.sass-cache/
+
+# Compiled Java class files (if any Java files exist)
+*.class
+
+# JetBrains project files
+.idea/
+
+# VSCode settings
+.vscode/
+
+# Log files from Webpack dev server
+webpack-dev-server/
+
+# Coverage files from Jest or other testing frameworks
+coverage/
+
+# React Native
+.expo/
+
+# Firebase
+firebase-debug.log
+.firebase/
+
+# Other ignored files and folders
+*.bak
+*.swp
