@@ -10,7 +10,7 @@ const InteractiveMap = () => {
     const [address, setAddress] = useState("");
   
     const fetchAddress = async (lat, lng) => {
-      const apiKey = "ae1923fb87b5410682431d61026c42ac"; // Replace with your OpenCage API key
+      const apiKey = "CLE_API"; // Replace with your OpenCage API key
       const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
       try {
         const response = await axios.get(url);
