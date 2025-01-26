@@ -17,7 +17,9 @@ a {
     width: 100vw;
 }
 
+/* Add margin-right to space out the picture */
 .navbar-logo svg {
+    margin-right: 10px; /* Adjust this value as needed */
     transform: scale(.9) rotate(0deg);
     transition: 0.5s;
 }

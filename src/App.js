@@ -3,9 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./Navbar";
 import InteractiveMap from "./components/InteractiveMap";
-import About from "./pages/About"; // New page
-import Contact from "./pages/Contact"; // New page
-import Home from "./pages/Home"; // New page
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Home from "./pages/Home"; 
+import Radon from "./pages/Radon";
+import Asbestos from "./pages/Asbestos";
+import Lead from "./pages/Lead";
 
 function App() {
   const [data, setData] = useState([{}]);
@@ -22,6 +25,9 @@ function App() {
           <Routes>
             {/* Define routes for each page */}
             <Route path="/" element={<Home />} />
+            <Route path="/Radon" element={<Radon />} />
+            <Route path="/Asbestos" element={<Asbestos />} />
+            <Route path="/Lead" element={<Lead />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>

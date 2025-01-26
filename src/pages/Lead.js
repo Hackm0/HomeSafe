@@ -4,7 +4,7 @@ import { ArrowRight, Home, AlertTriangle } from "react-feather";
 import { ShieldCheck } from "lucide-react";
 import "./Substance.css"
 
-function About() {
+function Lead() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <header className="bg-white shadow-sm">
@@ -145,7 +145,7 @@ function ActionSection() {
   )
 }
 
-export default About
+export default Lead
 
 
 
