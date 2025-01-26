@@ -165,6 +165,7 @@ if (result.ok) {
       >
         <div style={{ textAlign: "center" }}>
         <h1 className="text-4xl font-bold text-green-900 mb-4">Enter your address or click on the map</h1>
+        <h3> For this beta, our support is currently limited to Montréal. </h3>
           <form onSubmit={handleInputSubmit} style={{ marginBottom: "10px" }}>
             <input
               type="text"
