@@ -81,7 +81,7 @@ if (result.ok) {
   const chartData = [
     { name: "Asbestos (%)", value: resultInJson.confidence || 0 },
     { name: "Radon (%)", value: resultInJson.radon_probability || 0 },
-    { name: "Lead Level", value: transformedPlombLevel },
+    { name: "Lead Level (%)", value: transformedPlombLevel },
   ];
 
   setChartData(chartData);
@@ -116,7 +116,7 @@ if (result.ok) {
       window.location.href = "asbestos"
     } else if (rawName == "Radon (%)") {
       window.location.href = "Radon"
-    } else if (rawName == "Lead Level") {
+    } else if (rawName == "Lead Level (%)") {
       window.location.href = "lead"
     }
     //window.location.href = rawName;
@@ -247,24 +247,81 @@ if (result.ok) {
             width={760}
             height={300}
             data={chartData}
+
             margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
           >
             <CartesianGrid vertical={false} stroke="var(--border)" />
             <XAxis dataKey="name" tickLine={false} tickMargin={10} axisLine={false} />
-            <Bar dataKey="value" radius={[10, 10, 0, 0]} onClick={handleBarClick}>
+            <Bar
+              dataKey="value"
+              radius={[10, 10, 0, 0]}
+              onClick={handleBarClick}// Add pointer cursor
+            >
               {chartData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={entry.value > 55 ? "red" : "var(--chart-1)"}
+                  style={{
+                    transition: "all 0.3s ease",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.fill = "#f0ad4e"; // Change color on hover
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.fill = entry.value > 55 ? "red" : "var(--chart-1)"; // Reset color
+                  }}
                 />
               ))}
               <LabelList dataKey="value" position="top" offset={10} fontSize={12} />
             </Bar>
           </BarChart>
+          <p style={{ fontSize: "14px", color: "var(--foreground)", marginBottom: "10px", textAlign: "center" }}>
+            Click on the bars for more details.
+          </p>
         </div>
+
+        
+        <div class="bg-green-50 p-6 rounded-lg shadow-md">
+        <h3 class="text-lg font-semibold text-green-900 mb-4">Understanding the Numbers: Asbestos, Radon, and Lead</h3>
+        <p class="text-gray-800 mb-4">
+            These numbers represent the estimated likelihood or presence of harmful substances in your home—important data to help you make informed decisions about your health and safety.
+          </p>
+
+          <section class="mb-6">
+            <h3 class="text-md font-semibold text-green-800 mb-2">Asbestos Risk</h3>
+            <p class="text-gray-800 leading-relaxed">
+              The asbestos percentage reflects the estimated probability that your home contains asbestos. For instance, a score of 75% indicates a 75% likelihood of asbestos presence in your home, which is a concern as asbestos exposure can lead to serious health issues. This estimation is powered by our advanced AI model, which analyzes factors such as the age of your home, construction materials, and historical data. However, this is a predictive tool, not a definitive analysis, and <strong>professional testing</strong> is required for accurate results.
+            </p>
+          </section>
+
+          <section class="mb-6">
+            <h3 class="text-md font-semibold text-green-800 mb-2">Radon Levels</h3>
+            <p class="text-gray-800 leading-relaxed">
+              The radon data reflects the estimated radon levels in your area, using precise, government-provided data specific to your postal or ZIP code. Radon is a naturally occurring gas that can accumulate in homes, particularly in basements and lower levels, posing long-term health risks like lung cancer. This localized estimate provides a helpful starting point for understanding potential radon risks in your home, but <strong>professional testing</strong> is always recommended to confirm levels.
+            </p>
+          </section>
+
+          <section class="mb-6">
+            <h3 class="text-md font-semibold text-green-800 mb-2">Lead in Water</h3>
+            <p class="text-gray-800 leading-relaxed">
+              The lead presence indicator shows whether lead has been detected in your water supply, based on accurate data sourced from government records. Lead contamination often originates from aging pipes or municipal water systems and poses significant health risks, especially to young children and pregnant women. While this information is highly precise, it serves as a general guideline, and we encourage homeowners to perform water testing for confirmation.
+            </p>
+          </section>
+
+          <section>
+            <h3 class="text-md font-semibold text-green-800 mb-2">Why These Estimates Matter</h3>
+            <p class="text-gray-800 leading-relaxed mb-4">
+              While these numbers are rooted in reliable data and predictive models, it's essential to understand that they are <strong>only estimates</strong>. They are designed to provide you with an initial indication of potential risks, helping you decide whether further investigation and professional testing are necessary. For definitive answers, we strongly recommend consulting certified specialists who can conduct detailed assessments of asbestos, radon, and lead in your home.
+            </p>
+            <p class="text-gray-800 leading-relaxed">
+              Your health and safety are our priority—use these insights as a proactive step toward creating a safer living environment for you and your loved ones.
+            </p>
+          </section>
       </div>
     </div>
-  );
+    </div>
+    );
 };
 
 export default InteractiveMap;
