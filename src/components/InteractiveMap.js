@@ -6,6 +6,9 @@ import { Bar, BarChart, CartesianGrid, LabelList, XAxis, Cell } from "recharts";
 
 import axios from "axios";
 
+// import dotenv from 'dotenv';
+// dotenv.config();
+
 // Override the default icon URL with the correct path
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -29,7 +32,7 @@ const InteractiveMap = () => {
   const [chartData, setChartData] = useState([]);
 
   const fetchAddress = async (lat, lng) => {
-    const apiKey = "ae1923fb87b5410682431d61026c42ac";
+    const apiKey = process.env.REACT_APP_OPENCAGE_API_KEY;
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
     try {
       const response = await axios.get(url);
@@ -45,7 +48,7 @@ const InteractiveMap = () => {
   };
 
   const fetchCoordinates = async (input) => {
-    const apiKey = "ae1923fb87b5410682431d61026c42ac";
+    const apiKey = process.env.REACT_APP_OPENCAGE_API_KEY;
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(input)}&key=${apiKey}`;
     try {
       const response = await axios.get(url);
