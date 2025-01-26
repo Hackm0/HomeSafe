@@ -24,7 +24,7 @@ const InteractiveMap = () => {
       const results = response.data.results;
       if (results && results.length > 0) {
         setAddress(results[0].formatted);
-        setPostalCode(results[0].components.partial_postcode); // Extract postal code
+        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode); // Extract postal code
         setInputAddress(results[0].formatted);
       } else {
         setAddress("Adresse introuvable.");
@@ -44,10 +44,10 @@ const InteractiveMap = () => {
         const { lat, lng } = results[0].geometry;
         setPosition([lat, lng]);
         setAddress(results[0].formatted);
-        setPostalCode(results[0].components.partial_postcode);
+        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
 
         // Send the coordinates and postal code to the backend
-        const myData = { lat, lng, postalCode: results[0].components.partial_postcode };
+        const myData = { lat, lng, postalCode: results[0].components.partial_postcode || results[0].components.postcode };
         const result = await fetch("/lebron", {
           method: "POST",
           headers: {
