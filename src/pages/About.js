@@ -50,8 +50,8 @@ const About = () => {
 
       <div className="concept-text">
         <p>
-          We are dedicated to creating innovative solutions that bridge technology and social impact, working towards a
-          more inclusive and sustainable future for all.
+          Your Trusted Guide to a Safer Home and Healthier Living
+            Discover the risks, take action, and protect your home and loved ones. With easy-to-use tools and precise data, we’re here to help you create a secure and sustainable future.
         </p>
       </div>
 
