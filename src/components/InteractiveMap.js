@@ -34,9 +34,10 @@ const InteractiveMap = () => {
       const response = await axios.get(url);
       const results = response.data.results;
       if (results && results.length > 0) {
-        setAddress(results[0].formatted);
-        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
-        setInputAddress(results[0].formatted);
+        fetchCoordinates(results[0].formatted);
+        // setAddress(results[0].formatted);
+        // setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
+        // setInputAddress(results[0].formatted);
       } else {
         setAddress("Adresse introuvable.");
       }
@@ -100,7 +101,6 @@ const InteractiveMap = () => {
     useMapEvents({
       click(e) {
         const { lat, lng } = e.latlng;
-        setPosition([lat, lng]);
         fetchAddress(lat, lng);
       },
     });
