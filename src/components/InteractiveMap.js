@@ -2,7 +2,8 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from "react-leaflet";
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, Cell } from "recharts";
+
 import axios from "axios";
 
 // Override the default icon URL with the correct path
@@ -66,14 +67,26 @@ const InteractiveMap = () => {
   
         const resultInJson = await result.json();
   
-        if (result.ok) {
-          const chartData = [
-            { name: "Asbestos (%)", value: resultInJson.confidence || 0 },
-            { name: "Radon (%)", value: resultInJson.radon_probability || 0 },
-            { name: "Plomb Level", value: resultInJson.plomb_level || 0 },
-          ];
-          setChartData(chartData);
-        }
+if (result.ok) {
+  const plombLevel = resultInJson.plomb_level || 0;
+
+  // Transform plomb_level based on the given conditions
+  const transformedPlombLevel =
+    plombLevel === 60
+      ? 100
+      : plombLevel === 15
+      ? 0
+      : 50;
+
+  const chartData = [
+    { name: "Asbestos (%)", value: resultInJson.confidence || 0 },
+    { name: "Radon (%)", value: resultInJson.radon_probability || 0 },
+    { name: "Lead Level", value: transformedPlombLevel },
+  ];
+
+  setChartData(chartData);
+}
+
       }
     } catch (error) {
       console.error("Error:", error);
@@ -93,10 +106,22 @@ const InteractiveMap = () => {
   };
 
   const handleBarClick = (data) => {
-    // Redirect to a new page based on the bar clicked
-    // For example, redirecting based on the name of the data
-    window.location.href = `/new-page/${data.name.toLowerCase()}`;
+    // Remove everything from '%' onwards, including encoded or malformed content
+    const rawName = data.name; // Split on '%' to remove it and anything after
+    //asbestos%20(%)
+    //radon%20(%)
+    // plomb%20level
+    console.log(rawName);
+    if (rawName == "Asbestos (%)") {
+      window.location.href = "asbestos"
+    } else if (rawName == "Radon (%)") {
+      window.location.href = "Radon"
+    } else if (rawName == "Lead Level") {
+      window.location.href = "lead"
+    }
+    //window.location.href = rawName;
   };
+  
 
   const MapClickHandler = () => {
     useMapEvents({
@@ -174,7 +199,6 @@ const InteractiveMap = () => {
             <div>
               <h3>Selected Address:</h3>
               <p>{address || "Fetching address..."}</p>
-              <p>Postal Code: {postalCode || "Fetching postal code..."}</p>
             </div>
           )}
         </div>
@@ -227,12 +251,13 @@ const InteractiveMap = () => {
           >
             <CartesianGrid vertical={false} stroke="var(--border)" />
             <XAxis dataKey="name" tickLine={false} tickMargin={10} axisLine={false} />
-            <Bar
-              dataKey="value"
-              fill="var(--chart-1)" // Static color, no hover change
-              radius={[10, 10, 0, 0]}
-              onClick={handleBarClick}
-            >
+            <Bar dataKey="value" radius={[10, 10, 0, 0]} onClick={handleBarClick}>
+              {chartData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={entry.value > 55 ? "red" : "var(--chart-1)"}
+                />
+              ))}
               <LabelList dataKey="value" position="top" offset={10} fontSize={12} />
             </Bar>
           </BarChart>

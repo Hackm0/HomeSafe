@@ -22,11 +22,11 @@ function App() {
           <Routes>
             {/* Define routes for each page */}
             <Route path="/" element={<Home />} />
-            <Route path="/Radon" element={<Radon />} />
-            <Route path="/Asbestos" element={<Asbestos />} />
-            <Route path="/Lead" element={<Lead />} />
+            <Route path="/radon" element={<Radon />} />
+            <Route path="/asbestos" element={<Asbestos />} />
+            <Route path="/lead" element={<Lead />} />
             <Route path="/about" element={<About />} />
-            <Route path="/Contact" element={<Contact />} />
+            <Route path="/contact" element={<Contact />} />
 
           </Routes>
         </main>
