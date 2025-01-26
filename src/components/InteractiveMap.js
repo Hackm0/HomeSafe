@@ -27,22 +27,37 @@ const InteractiveMap = () => {
   };
 
   const fetchCoordinates = async (input) => {
-    const apiKey = "ae1923fb87b5410682431d61026c42ac"; // Replace with your OpenCage API key
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(input)}&key=${apiKey}`;
-    try {
-      const response = await axios.get(url);
-      const results = response.data.results;
-      if (results && results.length > 0) {
-        const { lat, lng } = results[0].geometry;
-        setPosition([lat, lng]);
-        setAddress(results[0].formatted);
-      } else {
-        setAddress("Adresse introuvable.");
-      }
-    } catch (error) {
-      setAddress("Erreur lors de la récupération de l'adresse.");
+  const apiKey = "ae1923fb87b5410682431d61026c42ac"; // Replace with your OpenCage API key
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(input)}&key=${apiKey}`;
+  try {
+    const response = await axios.get(url);
+    const results = response.data.results;
+    if (results && results.length > 0) {
+      const { lat, lng } = results[0].geometry;
+      setPosition([lat, lng]);
+      setAddress(results[0].formatted);
+
+      // Send the coordinates to your backend
+      const myData = { lat, lng };
+      const result = await fetch("/lebron", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(myData),
+      });
+
+      const resultInJson = await result.json();
+      console.log(resultInJson); // Check the response
+      setAddress("meow"); // Update address with confirmation message
+    } else {
+      setAddress("Adresse introuvable.");
     }
-  };
+  } catch (error) {
+    setAddress("Erreur lors de la récupération de l'adresse.");
+  }
+};
+
 
   const handleInputChange = (e) => {
     setInputAddress(e.target.value);
