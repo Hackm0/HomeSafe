@@ -344,7 +344,7 @@ if (result.ok) {
           <section class="mb-6">
             <h3 class="text-md font-semibold text-green-800 mb-2">Asbestos Risk</h3>
             <p class="text-gray-800 leading-relaxed">
-              The asbestos percentage reflects the estimated probability that your home contains asbestos. For instance, a score of 75% indicates a 75% likelihood of asbestos presence in your home, which is a concern as asbestos exposure can lead to serious health issues. This estimation is powered by our advanced AI model, which analyzes factors such as the age of your home, construction materials, and historical data. However, this is a predictive tool, not a definitive analysis, and <strong>professional testing</strong> is required for accurate results.
+              The asbestos percentage reflects the estimated probability that your home contains asbestos. For instance, a score of 75% indicates a 75% likelihood of asbestos presence in your home, which is a concern as asbestos exposure can lead to serious health issues. This estimation is powered by our advanced AI model, which analyzes factors such as the age of your home and historical data. However, this is a predictive tool, not a definitive analysis, and <strong>professional testing</strong> is required for accurate results.
             </p>
           </section>
 
