@@ -2,22 +2,23 @@ import 'leaflet/dist/leaflet.css';
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from "react-leaflet";
 import axios from "axios";
-// clé OpenCage : ae1923fb87b5410682431d61026c42ac
 
 const InteractiveMap = () => {
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
+  const [postalCode, setPostalCode] = useState(""); // New state for postal code
   const [inputAddress, setInputAddress] = useState("");
 
   const fetchAddress = async (lat, lng) => {
-    const apiKey = "ae1923fb87b5410682431d61026c42ac"; // Replace with your OpenCage API key
+    const apiKey = "ae1923fb87b5410682431d61026c42ac";
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
     try {
       const response = await axios.get(url);
       const results = response.data.results;
       if (results && results.length > 0) {
         setAddress(results[0].formatted);
-        setInputAddress(results[0].formatted); // Update input field
+        setPostalCode(results[0].components.postcode || "N/A"); // Extract postal code
+        setInputAddress(results[0].formatted);
       } else {
         setAddress("Adresse introuvable.");
       }
@@ -27,37 +28,37 @@ const InteractiveMap = () => {
   };
 
   const fetchCoordinates = async (input) => {
-  const apiKey = "ae1923fb87b5410682431d61026c42ac"; // Replace with your OpenCage API key
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(input)}&key=${apiKey}`;
-  try {
-    const response = await axios.get(url);
-    const results = response.data.results;
-    if (results && results.length > 0) {
-      const { lat, lng } = results[0].geometry;
-      setPosition([lat, lng]);
-      setAddress(results[0].formatted);
+    const apiKey = "ae1923fb87b5410682431d61026c42ac";
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(input)}&key=${apiKey}`;
+    try {
+      const response = await axios.get(url);
+      const results = response.data.results;
+      if (results && results.length > 0) {
+        const { lat, lng } = results[0].geometry;
+        setPosition([lat, lng]);
+        setAddress(results[0].formatted);
+        setPostalCode(results[0].components.postcode || "N/A");
 
-      // Send the coordinates to your backend
-      const myData = { lat, lng };
-      const result = await fetch("/lebron", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(myData),
-      });
+        // Send the coordinates and postal code to the backend
+        const myData = { lat, lng, postalCode: results[0].components.postcode || "N/A" };
+        const result = await fetch("/lebron", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(myData),
+        });
 
-      const resultInJson = await result.json();
-      console.log(resultInJson); // Check the response
-      setAddress("meow"); // Update address with confirmation message
-    } else {
-      setAddress("Adresse introuvable.");
+        const resultInJson = await result.json();
+        console.log(resultInJson); // Check the response
+        setAddress("Prediction complete!");
+      } else {
+        setAddress("Adresse introuvable.");
+      }
+    } catch (error) {
+      setAddress("Erreur lors de la récupération de l'adresse.");
     }
-  } catch (error) {
-    setAddress("Erreur lors de la récupération de l'adresse.");
-  }
-};
-
+  };
 
   const handleInputChange = (e) => {
     setInputAddress(e.target.value);
@@ -129,6 +130,7 @@ const InteractiveMap = () => {
           <div>
             <h3>Selected Address:</h3>
             <p>{address || "Fetching address..."}</p>
+            <p>Postal Code: {postalCode || "Fetching postal code..."}</p>
           </div>
         )}
       </div>
