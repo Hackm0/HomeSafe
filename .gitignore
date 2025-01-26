@@ -91,3 +91,9 @@ firebase-debug.log
 # Other ignored files and folders
 *.bak
 *.swp
+
+# Ignore the virtual environment directory
+venv/
+
+# Ignore pyvenv.cfg inside the virtual environment
+**/pyvenv.cfg
