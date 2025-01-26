@@ -50,19 +50,15 @@ def handle_prediction_request():
         print(f"Lead level : {plomb_level}")
 
         return jsonify({
-            "message": "Prediction made successfully!",
-            "lat": latitude,
-            "lng": longitude,
-            "postalCode": postal_code,  # Include postal code in the response
-            "confidence": confidence,
-            "year_of_construction": year_of_construction
+            "asbestoss": confidence,
+            "radon": radon_probability,
+            "plomb": plomb_level
         }), 200  # OK
 
     except Exception as e:
         # Log and return an error if something fails
         print(f"Error during prediction: {e}")
         return jsonify({"error": "An error occurred during prediction. Please try again."}), 500
-
-
+    
 if __name__ == "__main__":
     app.run(debug=True)
