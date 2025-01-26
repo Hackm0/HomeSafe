@@ -1,39 +1,33 @@
-// App.js
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import Navbar from './Navbar';
-import InteractiveMap from './components/InteractiveMap';
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./Navbar";
+import InteractiveMap from "./components/InteractiveMap";
+import About from "./pages/About"; // New page
+import Contact from "./pages/Contact"; // New page
+import Home from "./pages/Home"; // New page
 
 function App() {
   const [data, setData] = useState([{}]);
 
-  // useEffect(() => {
-  //   fetch('/members')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setData(data);
-  //       console.log(data);
-  //     });
-  // }, []);
-
   return (
-    <div className="App">
-      <Navbar />
-      <header className="App-header">
-        <h1>PREDECTION</h1>
-        <h2>Building a Sustainable Future Through Property Insights</h2>
-      </header>
-      <main>
-        <InteractiveMap />
-        {/* {typeof data.members === 'undefined' ? (
-          <p>Loading...</p>
-        ) : (
-          data.members.map((member, i) => (
-            <p key={i}>{member}</p>
-          ))
-        )} */}
-      </main>
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <header className="App-header">
+          <h1>PREDECTION</h1>
+          <h2>Building a Sustainable Future Through Property Insights</h2>
+        </header>
+        <main>
+          <Routes>
+            {/* Define routes for each page */}
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 

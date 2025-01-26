@@ -4,12 +4,14 @@ from flask_cors import CORS
 from methods.modelPrediction import predict_asbestos
 import methods.ageBatiment as batiments
 from methods.radonLevel import load_data, getRadonProbability
+from methods.plomb import find_closest_plomb
 
 app = Flask(__name__)
 CORS(app) 
 
 building_data = batiments.load_buildings_data("methods/data/anneeBatiment.csv")
 radon_data = load_data("methods/data/radonLevel.csv")
+plomb_file = "methods/data/plomb.csv"
 
 # @app.route("/members", methods=["GET"])
 # def members():
@@ -24,10 +26,10 @@ def handle_prediction_request():
     latitude = data.get('lat')
     longitude = data.get('lng')
     postal_code = data.get('postalCode')  # Get the postal code
-    postal_code = postal_code[:3]  # Keep only the first three characters
+    postal_code = postal_code[:3]
 
 
-    print(f"Received POST request to /lebron: {data}")
+    print(f"Received POST request to /lebron: {data} POSTALE CODE : {postal_code}")
     
     if latitude is None or longitude is None or postal_code is None:
         return jsonify({"error": "Latitude, longitude, and postal code are required."}), 400
@@ -41,8 +43,11 @@ def handle_prediction_request():
         
         radon_probability = getRadonProbability(radon_data, postal_code)
 
+        plomb_level = find_closest_plomb(plomb_file, longitude, latitude)
+
         print(f"Predicted confidence of asbestos presence: {confidence} year estimated {year_of_construction}")
         print(f"Radon probability for postal code {postal_code}: {radon_probability}")
+        print(f"Lead level : {plomb_level}")
 
         return jsonify({
             "message": "Prediction made successfully!",
