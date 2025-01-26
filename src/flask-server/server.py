@@ -3,11 +3,13 @@ from flask_cors import CORS
 
 from methods.modelPrediction import predict_asbestos
 import methods.ageBatiment as batiments
+from methods.radonLevel import load_data, getRadonProbability
 
 app = Flask(__name__)
 CORS(app) 
 
 building_data = batiments.load_buildings_data("methods/data/anneeBatiment.csv")
+radon_data = load_data("methods/data/radonLevel.csv")
 
 @app.route("/members", methods=["GET"])
 def members():
@@ -35,7 +37,10 @@ def handle_prediction_request():
 
         confidence = predict_asbestos(longitude, latitude, year_of_construction)
         
+        radon_probability = getRadonProbability(radon_data, postal_code)
+
         print(f"Predicted confidence of asbestos presence: {confidence} year estimated {year_of_construction}")
+        print(f"Radon probability for postal code {postal_code}: {radon_probability}")
 
         return jsonify({
             "message": "Prediction made successfully!",
