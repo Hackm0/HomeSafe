@@ -35,9 +35,6 @@ const InteractiveMap = () => {
       const results = response.data.results;
       if (results && results.length > 0) {
         fetchCoordinates(results[0].formatted);
-        // setAddress(results[0].formatted);
-        // setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
-        // setInputAddress(results[0].formatted);
       } else {
         setAddress("Adresse introuvable.");
       }
@@ -68,7 +65,6 @@ const InteractiveMap = () => {
         });
   
         const resultInJson = await result.json();
-        console.log(resultInJson); // Debug the response
   
         if (result.ok) {
           const chartData = [
@@ -84,7 +80,6 @@ const InteractiveMap = () => {
       setAddress("Erreur lors de la récupération de l'adresse.");
     }
   };
-  
 
   const handleInputChange = (e) => {
     setInputAddress(e.target.value);
@@ -95,6 +90,12 @@ const InteractiveMap = () => {
     if (inputAddress) {
       fetchCoordinates(inputAddress);
     }
+  };
+
+  const handleBarClick = (data) => {
+    // Redirect to a new page based on the bar clicked
+    // For example, redirecting based on the name of the data
+    window.location.href = `/new-page/${data.name.toLowerCase()}`;
   };
 
   const MapClickHandler = () => {
@@ -226,7 +227,12 @@ const InteractiveMap = () => {
           >
             <CartesianGrid vertical={false} stroke="var(--border)" />
             <XAxis dataKey="name" tickLine={false} tickMargin={10} axisLine={false} />
-            <Bar dataKey="value" fill="var(--chart-1)" radius={[10, 10, 0, 0]}>
+            <Bar
+              dataKey="value"
+              fill="var(--chart-1)" // Static color, no hover change
+              radius={[10, 10, 0, 0]}
+              onClick={handleBarClick}
+            >
               <LabelList dataKey="value" position="top" offset={10} fontSize={12} />
             </Bar>
           </BarChart>
