@@ -24,10 +24,9 @@ def handle_prediction_request():
     latitude = data.get('lat')
     longitude = data.get('lng')
     postal_code = data.get('postalCode')  # Get the postal code
-    postal_code = postal_code[:3]  # Keep only the first three characters
 
 
-    print(f"Received POST request to /lebron: {data}")
+    print(f"Received POST request to /lebron: {data} POSTALE CODE : {postal_code}")
     
     if latitude is None or longitude is None or postal_code is None:
         return jsonify({"error": "Latitude, longitude, and postal code are required."}), 400
