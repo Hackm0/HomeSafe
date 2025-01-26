@@ -5,36 +5,49 @@ from methods.modelPrediction import predict_asbestos
 import methods.ageBatiment as batiments
 
 app = Flask(__name__)
-CORS(app)  # This will allow all origins by default
+CORS(app) 
 
+building_data = batiments.load_buildings_data("methods/data/anneeBatiment.csv")
 
-# Member API route
 @app.route("/members", methods=["GET"])
 def members():
-    return {"members": ["Member1", "Member2", "Member3"]}
+    return jsonify({"members": ["Member1", "Member2", "Member3"]})
 
 @app.route('/lebron', methods=['POST'])
-def add_kyrie():
-    data = request.get_json()  # Get JSON data from the POST request
-    lat = data.get('lat')
-    lng = data.get('lng')
+def handle_prediction_request():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid request. No data provided."}), 400  # Bad Request
+
+    latitude = data.get('lat')
+    longitude = data.get('lng')
+    
     print(f"Received POST request to /lebron: {data}")
-    # Process the data (e.g., save to a database)
-    return jsonify({"message": "Member added successfully!", "lat": lat, "lng": lng}), 201  # 201 Created status code
+    
+    if latitude is None or longitude is None:
+        return jsonify({"error": "Latitude and longitude are required."}), 400
+
+    try:
+        year_of_construction = batiments.estimate_building_year(latitude, longitude, building_data)
+        if not year_of_construction:
+            year_of_construction = 1990  # Default year if estimation fails
+
+        confidence = predict_asbestos(longitude, latitude, year_of_construction)
+        
+        print(f"Predicted confidence of asbestos presence: {confidence}")
+
+        return jsonify({
+            "message": "Prediction made successfully!",
+            "lat": latitude,
+            "lng": longitude,
+            "confidence": confidence,
+            "year_of_construction": year_of_construction
+        }), 200  # OK
+
+    except Exception as e:
+        # Log and return an error if something fails
+        print(f"Error during prediction: {e}")
+        return jsonify({"error": "An error occurred during prediction. Please try again."}), 500
 
 if __name__ == "__main__":
-    batiment = batiments.load_buildings_data("methods/data/anneeBatiment.csv")
-
-    # Example call to `predict_asbestos` with random values
-    lon = -73.5673
-    lat = 45.5017
-
-    year_of_construction = batiments.estimate_building_year(lat, lon, batiment)
-
-    if not year_of_construction : 
-        year_of_construction = 1990
-     
-    confidence = predict_asbestos(lon, lat, year_of_construction)
-    print(f"Predicted confidence of asbestos presence: {confidence}")
-
     app.run(debug=True)
