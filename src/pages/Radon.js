@@ -6,20 +6,18 @@ import "./Substance.css"
 
 function Radon() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-      <header className="bg-white shadow-sm">
-        <div className="container mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-blue-800">Radon Awareness</h1>
-        </div>
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+      <header style={{backgroundColor: "var(--card)"}}>
+
       </header>
 
-      <main className="container mx-auto px-4 py-12">
+      <main style={{backgroundColor: "var(--card)"}}>
         <HeroSection />
         <InfoSection />
         <ActionSection />
       </main>
 
-      <footer className="bg-blue-800 text-white py-6">
+      <footer className="bg-green-800 text-white py-6">
         <div className="container mx-auto px-4 text-center">
           <p> McHacks 2025</p>
         </div>
@@ -36,7 +34,7 @@ function HeroSection() {
       transition={{ duration: 0.6 }}
       className="text-center mb-16"
     >
-      <h1 className="text-4xl font-bold text-blue-900 mb-4">Understanding the Dangers of Radon</h1>
+      <h1 className="text-4xl font-bold text-green-900 mb-4">Understanding the Dangers of Radon</h1>
       <p className="text-xl text-gray-600 max-w-2xl mx-auto">
         Radon is a silent threat that could be lurking in your home. Learn about its risks and how to protect your
         family.
@@ -63,7 +61,7 @@ function InfoSection() {
       title: "Where It's Found",
       content:
         "Radon originates from the natural breakdown of uranium in soil, rock, and water. It seeps into homes through cracks in foundations, construction joints, and gaps around pipes. Certain building designs, such as those with basements or crawl spaces, can exacerbate radon accumulation, as these areas are often poorly ventilated. Geological characteristics, including uranium-rich soils common in certain parts of Canada, further contribute to radon infiltration in homes.",
-      icon: <Home className="w-12 h-12 text-blue-500" />,
+      icon: <Home className="w-12 h-12 text-green-500" />,
     },
   ]
 
@@ -74,7 +72,7 @@ function InfoSection() {
       transition={{ duration: 0.6, delay: 0.2 }}
       className="mb-16"
     >
-      <h3 className="text-2xl font-semibold text-blue-800 mb-8 text-center">Key Information</h3>
+      <h3 className="text-2xl font-semibold text-green-800 mb-8 text-center">Key Information</h3>
       <div className="grid md:grid-cols-3 gap-8">
         {infoCards.map((card, index) => (
           <motion.div
@@ -85,7 +83,7 @@ function InfoSection() {
             className="bg-white p-6 rounded-lg shadow-lg"
           >
             <div className="flex justify-center mb-4">{card.icon}</div>
-            <h4 className="text-xl font-semibold text-blue-900 mb-2">{card.title}</h4>
+            <h4 className="text-xl font-semibold text-green-900 mb-2">{card.title}</h4>
             <p className="text-gray-600">{card.content}</p>
           </motion.div>
         ))}
@@ -108,9 +106,9 @@ function ActionSection() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, delay: 0.4 }}
-      className="bg-blue-100 p-8 rounded-lg shadow-inner"
+      className="bg-green-100 p-8 rounded-lg shadow-inner"
     >
-      <h3 className="text-2xl font-semibold text-blue-800 mb-6 text-center">
+      <h3 className="text-2xl font-semibold text-green-800 mb-6 text-center">
         What to Do If You Suspect Radon in Your Home
       </h3>
       <ul className="space-y-4">
@@ -135,7 +133,7 @@ function ActionSection() {
       >
         <a
           href="https://www.canada.ca/en/health-canada/services/health-risks-safety/radiation/radon/testing-your-home.html"
-          className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition duration-300"
+          className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-semibold rounded-full hover:bg-green-700 transition duration-300"
         >
           Find a Radon Professional Near You
           <ArrowRight className="ml-2 w-5 h-5" />
