@@ -264,26 +264,75 @@ if (result.ok) {
               {chartData.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={entry.value > 55 ? "red" : "var(--chart-1)"}
+                  fill={entry.value > 55
+                    ? "red" // Danger
+                    : entry.value >= 31
+                    ? "#FFDD00" // Caution
+                    : "green"}
                   style={{
                     transition: "all 0.3s ease",
                     cursor: "pointer",
+                    stroke: "#000", // Border color
+                    strokeWidth: 1.5,
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.fill = "#f0ad4e"; // Change color on hover
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.fill = entry.value > 55 ? "red" : "var(--chart-1)"; // Reset color
+                    e.target.style.fill = entry.value > 55
+                    ? "red" // Danger
+                    : entry.value >= 31
+                    ? "#FFDD00" // Caution
+                    : "green"; // Safe; // Reset color
                   }}
                 />
               ))}
-              <LabelList dataKey="value" position="top" offset={10} fontSize={12} />
+              <LabelList dataKey="value" position="top" offset={6} fontSize={16} />
             </Bar>
           </BarChart>
           <p style={{ fontSize: "14px", color: "var(--foreground)", marginBottom: "10px", textAlign: "center" }}>
             Click on the bars for more details.
           </p>
         </div>
+
+            <div style={{ marginTop: "20px", textAlign: "center" }}>
+        <h3 style={{ fontSize: "16px", marginBottom: "10px", fontWeight: "bold" }}>
+          Risk Level Legend
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <div
+            style={{
+              width: "30px",
+              height: "10px",
+              backgroundColor: "green",
+            }}
+          ></div>
+          <span style={{ fontSize: "12px" }}>Safe (0-30%)</span>
+          <div
+            style={{
+              width: "30px",
+              height: "10px",
+              backgroundColor: "yellow",
+            }}
+          ></div>
+          <span style={{ fontSize: "12px" }}>Caution (31-55%)</span>
+          <div
+            style={{
+              width: "30px",
+              height: "10px",
+              backgroundColor: "red",
+            }}
+          ></div>
+          <span style={{ fontSize: "12px" }}>Danger (56-100%)</span>
+        </div>
+      </div>
 
         
         <div class="bg-green-50 p-6 rounded-lg shadow-md">
