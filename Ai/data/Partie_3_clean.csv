@@ -1,4 +1,4 @@
-X,Y,Z,Name,Organisme,Adresse,Ville,Province,Code_postal,Localisation_de_l_amiante,Source,L__gislation,Cat__gorie,Latitude__y_,Longitude__x_,Code postal,amiante,gislation,gorie
+lat,lon,Z,Name,Organisme,Adresse,Ville,Province,Code_postal,Localisation_de_l_amiante,Source,L__gislation,Cat__gorie,Latitude__y_,Longitude__x_,Code postal,amiante,gislation,gorie
 -73.534437,45.568176,0,Location,,2350 Rue Dickson,Montréal,Québec,H1N 3T1,ND,"Inventaire national de l'amiante dans les immeubles fédéraux  
 https://www.tpsgc-pwgsc.gc.ca/biens-property/ami-asb/index-fra.html",Partie 2 du Code canadien du travail et le Règlement canadien sur la santé et la sécurité du travail,Services gouv. du fédéral,45.568176,-73.534437,H1N 3T1,ND,Partie 2 du Code canadien du travail et le Règlement canadien sur la santé et la sécurité du travail,Services gouv. du fédéral
 -73.559069,45.517775,0,Location,,1001 Boul. De Maisonneuve Est,Montréal,Québec,H2L 4P9,ND,"Inventaire national de l'amiante dans les immeubles fédéraux  
