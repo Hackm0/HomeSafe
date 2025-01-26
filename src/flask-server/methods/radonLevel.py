@@ -9,7 +9,7 @@ def load_data(file):
     data = {}
     try:
         with open(file, mode='r') as csv_file:
-            reader = csv.DictReader(csv_file, delimiter='\t')
+            reader = csv.DictReader(csv_file, delimiter=';')
             for row in reader:
                 postal_code = row['RTA']
                 radon_prob = float(row['RadonProb'])
