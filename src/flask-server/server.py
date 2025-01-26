@@ -26,6 +26,7 @@ def handle_prediction_request():
     latitude = data.get('lat')
     longitude = data.get('lng')
     postal_code = data.get('postalCode')  # Get the postal code
+    postal_code = postal_code[:3]
 
 
     print(f"Received POST request to /lebron: {data} POSTALE CODE : {postal_code}")
