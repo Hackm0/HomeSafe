@@ -1,12 +1,19 @@
 import 'leaflet/dist/leaflet.css';
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from "react-leaflet";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 import axios from "axios";
+
+const chartData = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+];
 
 const InteractiveMap = () => {
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState(""); // New state for postal code
+  const [postalCode, setPostalCode] = useState("");
   const [inputAddress, setInputAddress] = useState("");
 
   const fetchAddress = async (lat, lng) => {
@@ -17,7 +24,7 @@ const InteractiveMap = () => {
       const results = response.data.results;
       if (results && results.length > 0) {
         setAddress(results[0].formatted);
-        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode); // Extract postal code
+        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
         setInputAddress(results[0].formatted);
       } else {
         setAddress("Adresse introuvable.");
@@ -38,22 +45,6 @@ const InteractiveMap = () => {
         setPosition([lat, lng]);
         setAddress(results[0].formatted);
         setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
-
-        // Send the coordinates and postal code to the backend
-        const myData = { lat, lng, postalCode: (results[0].components.partial_postcode || results[0].components.postcode) };
-        const result = await fetch("/lebron", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(myData),
-        });
-
-        const resultInJson = await result.json();
-        console.log(resultInJson); // Check the response
-        //setAddress("Prediction complete!");
-      } else {
-        //setAddress("Adresse introuvable.");
       }
     } catch (error) {
       setAddress("Erreur lors de la récupération de l'adresse.");
@@ -93,90 +84,106 @@ const InteractiveMap = () => {
   };
 
   return (
-<div
-  style={{
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100vh",
-  }}
->
-  <div
-    style={{
-      width: "70%", // Adjusted width for the text and input container
-      textAlign: "center",
-      marginBottom: "20px",
-    }}
-  >
-    <h1>Address</h1>
-    <p>Enter your address or click on your home.</p>
-    <form onSubmit={handleInputSubmit} style={{ marginBottom: "20px" }}>
-      <input
-        type="text"
-        value={inputAddress}
-        onChange={handleInputChange}
-        placeholder="Enter an address"
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px",
+        alignItems: "center",
+        padding: "20px",
+      }}
+    >
+      {/* Map Section */}
+      <div style={{ width: "100%", maxWidth: "800px", textAlign: "center" }}>
+        <h1>Address</h1>
+        <p>Enter your address or click on your home.</p>
+        <form onSubmit={handleInputSubmit}>
+          <input
+            type="text"
+            value={inputAddress}
+            onChange={handleInputChange}
+            placeholder="Enter an address"
+            style={{
+              width: "60%",
+              padding: "10px",
+              fontSize: "16px",
+              border: "1px solid #ccc",
+              borderRadius: "4px",
+              marginBottom: "10px",
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              padding: "10px 20px",
+              backgroundColor: "#007BFF",
+              color: "white",
+              border: "none",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+          >
+            Search
+          </button>
+        </form>
+        {position && (
+          <div>
+            <h3>Selected Address:</h3>
+            <p>{address || "Fetching address..."}</p>
+            <p>Postal Code: {postalCode || "Fetching postal code..."}</p>
+          </div>
+        )}
+      </div>
+      <div style={{ width: "100%", maxWidth: "800px", height: "400px", border: "1px solid #ccc" }}>
+        <MapContainer center={[45.5017, -73.5673]} zoom={13} style={{ height: "100%", width: "100%" }}>
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+          <MapClickHandler />
+          <CenterMap position={position} />
+          {position && (
+            <Marker position={position}>
+              <Popup>{address || "Fetching address..."}</Popup>
+            </Marker>
+          )}
+        </MapContainer>
+      </div>
+
+      {/* Bar Chart Section */}
+      <div
         style={{
-          width: "60%",
-          padding: "10px",
-          fontSize: "16px",
+          width: "100%",
+          maxWidth: "800px",
+          padding: "20px",
           border: "1px solid #ccc",
-          borderRadius: "4px",
-          marginBottom: "10px",
-        }}
-      />
-      <button
-        type="submit"
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#007BFF",
-          color: "white",
-          border: "none",
-          borderRadius: "4px",
-          cursor: "pointer",
+          borderRadius: "8px",
+          backgroundColor: "#f9f9f9",
+          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        Search
-      </button>
-    </form>
-    {position && (
-      <div>
-        <h3>Selected Address:</h3>
-        <p>{address || "Fetching address..."}</p>
-        <p>Postal Code: {postalCode || "Fetching postal code..."}</p>
+        <h2 style={{ marginBottom: "10px" }}>Bar Chart - Label</h2>
+        <p style={{ marginBottom: "20px" }}>January - March 2024</p>
+        <BarChart
+          width={700}
+          height={300}
+          data={chartData}
+          margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
+        >
+          <CartesianGrid vertical={false} stroke="#ccc" />
+          <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
+          <Bar dataKey="desktop" fill="#8884d8" radius={[10, 10, 0, 0]}>
+            <LabelList dataKey="desktop" position="top" offset={10} fontSize={12} />
+          </Bar>
+        </BarChart>
+        <div style={{ marginTop: "20px", color: "#666" }}>
+          Trending up by 5.2% this quarter
+        </div>
+        <div style={{ color: "#999" }}>
+          Showing total visitors for the first quarter
+        </div>
       </div>
-    )}
-  </div>
-  <div
-    style={{
-      width: "60%", // Reduced width for the map container
-      height: "50vh",
-      border: "1px solid #ccc",
-      borderRadius: "8px", // Added rounding for better aesthetics
-      overflow: "hidden", // Ensures no content spills out
-    }}
-  >
-    <MapContainer
-      center={[45.5017, -73.5673]}
-      zoom={13}
-      style={{ height: "100%", width: "100%" }}
-    >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      <MapClickHandler />
-      <CenterMap position={position} />
-      {position && (
-        <Marker position={position}>
-          <Popup>{address || "Chargement de l'adresse..."}</Popup>
-        </Marker>
-      )}
-    </MapContainer>
-  </div>
-</div>
-
+    </div>
   );
 };
 
