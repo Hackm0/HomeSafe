@@ -4,27 +4,27 @@ export default function Contact() {
   const teamMembers = [
     {
       name: "Olivier Hamel",
-      description: "Étudiant en génie informatique à Polytechnique Montréal",
-      image: "/placeholder.svg?height=150&width=150",
+      description: "Computer engineering student at Polytechnique Montréal",
+      image: "/Pictures/OlivierHamel.jpeg",
       linkedin: "https://www.linkedin.com/in/olivier-hamel/",
     },
     {
-      name: "Team Member 2",
-      description: "Senior Designer specializing in user experience and interface design.",
-      image: "/placeholder.svg?height=150&width=150",
-      linkedin: "https://linkedin.com/in/member2",
+      name: "Jason Xa",
+      description: "Software Engineering Student @ Polytechnique Montréal",
+      image: "/Pictures/JasonXa.jpeg",
+      linkedin: "https://www.linkedin.com/in/jasonxa",
     },
     {
-      name: "Team Member 3",
-      description: "Backend Engineer with focus on scalable systems and database optimization.",
-      image: "/placeholder.svg?height=150&width=150",
-      linkedin: "https://linkedin.com/in/member3",
+      name: "Matéo Tardy",
+      description: "First time Hackaton participant, student at Polytechnique Montréal",
+      image: "/Pictures/MateoTardy.jpg",
+      linkedin: "https://www.linkedin.com/in/matéo-tardy",
     },
     {
-      name: "Team Member 4",
-      description: "Project Manager ensuring smooth delivery and team coordination.",
-      image: "/placeholder.svg?height=150&width=150",
-      linkedin: "https://linkedin.com/in/member4",
+      name: "Hakeem Raouj",
+      description: "First year software engineer student at Polytechnique Montréal.",
+      image: "/Pictures/HakeemRaouj.png",
+      linkedin: "https://www.linkedin.com/in/hakeem-raouj",
     },
   ]
 return (

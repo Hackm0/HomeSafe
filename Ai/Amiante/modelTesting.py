@@ -5,8 +5,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 
-file_with_asbestos = 'Ai\data\dataWithAsbestos.csv'
-file_without_asbestos = 'Ai\data\dataWithoutAsbestos.csv'
+file_with_asbestos = '../data/dataWithAsbestos.csv'
+file_without_asbestos = '../data/dataWithoutAsbestos_2.csv'
 
 data_with_asbestos = pd.read_csv(file_with_asbestos)
 data_without_asbestos = pd.read_csv(file_without_asbestos)
@@ -62,6 +62,6 @@ plt.show()
 
 
 # Save the trained model
-joblib.dump(model, 'asbestos_model.pkl')
+joblib.dump(model, 'asbestos_model_2.pkl')
 print("Model saved successfully!")
 
