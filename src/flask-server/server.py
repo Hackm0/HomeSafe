@@ -26,6 +26,7 @@ def handle_prediction_request():
     latitude = data.get('lat')
     longitude = data.get('lng')
     postal_code = data.get('postalCode')  # Get the postal code
+    postal_code = postal_code[:3]
 
 
     print(f"Received POST request to /lebron: {data} POSTALE CODE : {postal_code}")
@@ -38,7 +39,7 @@ def handle_prediction_request():
         if not year_of_construction:
             year_of_construction = 1990  # Default year if estimation fails
 
-        confidence = predict_asbestos(longitude, latitude, year_of_construction)
+        confidence = predict_asbestos(longitude, latitude, year_of_construction) * 100
         
         radon_probability = getRadonProbability(radon_data, postal_code)
 
@@ -47,6 +48,9 @@ def handle_prediction_request():
         print(f"Predicted confidence of asbestos presence: {confidence} year estimated {year_of_construction}")
         print(f"Radon probability for postal code {postal_code}: {radon_probability}")
         print(f"Lead level : {plomb_level}")
+        print(f"DEBUG - Type of radon_probability: {type(radon_probability)}")
+        print(f"DEBUG - Type of plomb_level: {type(plomb_level)}")
+
 
         return jsonify({
             "message": "Prediction made successfully!",
@@ -54,6 +58,8 @@ def handle_prediction_request():
             "lng": longitude,
             "postalCode": postal_code,  # Include postal code in the response
             "confidence": confidence,
+            "radon_probability": radon_probability,  # Add radon_probability
+            "plomb_level": plomb_level,
             "year_of_construction": year_of_construction
         }), 200  # OK
 

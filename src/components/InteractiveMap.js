@@ -4,17 +4,12 @@ import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from "re
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 import axios from "axios";
 
-const chartData = [
-  { month: "January", desktop: 186 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-];
-
 const InteractiveMap = () => {
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState(""); // New state for postal code
+  const [postalCode, setPostalCode] = useState("");
   const [inputAddress, setInputAddress] = useState("");
+  const [chartData, setChartData] = useState([]);
 
   const fetchAddress = async (lat, lng) => {
     const apiKey = "ae1923fb87b5410682431d61026c42ac";
@@ -24,7 +19,7 @@ const InteractiveMap = () => {
       const results = response.data.results;
       if (results && results.length > 0) {
         setAddress(results[0].formatted);
-        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode); // Extract postal code
+        setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
         setInputAddress(results[0].formatted);
       } else {
         setAddress("Adresse introuvable.");
@@ -45,8 +40,7 @@ const InteractiveMap = () => {
         setPosition([lat, lng]);
         setAddress(results[0].formatted);
         setPostalCode(results[0].components.partial_postcode || results[0].components.postcode);
-
-        // Send the coordinates and postal code to the backend
+  
         const myData = { lat, lng, postalCode: results[0].components.partial_postcode || results[0].components.postcode };
         const result = await fetch("/lebron", {
           method: "POST",
@@ -55,17 +49,25 @@ const InteractiveMap = () => {
           },
           body: JSON.stringify(myData),
         });
-
+  
         const resultInJson = await result.json();
-        console.log(resultInJson); // Check the response
-        //setAddress("Prediction complete!");
-      } else {
-        //setAddress("Adresse introuvable.");
+        console.log(resultInJson); // Debug the response
+  
+        if (result.ok) {
+          const chartData = [
+            { name: "Asbestos (%)", value: resultInJson.confidence || 0 },
+            { name: "Radon (%)", value: resultInJson.radon_probability || 0 },
+            { name: "Plomb Level", value: resultInJson.plomb_level || 0 },
+          ];
+          setChartData(chartData);
+        }
       }
     } catch (error) {
+      console.error("Error:", error);
       setAddress("Erreur lors de la récupération de l'adresse.");
     }
   };
+  
 
   const handleInputChange = (e) => {
     setInputAddress(e.target.value);
@@ -110,17 +112,15 @@ const InteractiveMap = () => {
         color: "var(--foreground)",
       }}
     >
-      {/* Shared Container for Search Bar, Map, and Chart */}
       <div
         style={{
           width: "100%",
-          maxWidth: "800px", // Shared fixed width for all elements
+          maxWidth: "800px",
           display: "flex",
           flexDirection: "column",
           gap: "20px",
         }}
       >
-        {/* Search Bar Section */}
         <div style={{ textAlign: "center" }}>
           <h1>Address</h1>
           <p>Enter your address or click on the map.</p>
@@ -162,7 +162,6 @@ const InteractiveMap = () => {
           )}
         </div>
 
-        {/* Map Section */}
         <div
           style={{
             width: "100%",
@@ -190,7 +189,6 @@ const InteractiveMap = () => {
           </MapContainer>
         </div>
 
-        {/* Bar Chart Section */}
         <div
           style={{
             width: "100%",
@@ -203,26 +201,19 @@ const InteractiveMap = () => {
             boxSizing: "border-box",
           }}
         >
-          <h2 style={{ marginBottom: "10px" }}>Bar Chart - Label</h2>
-          <p style={{ marginBottom: "20px" }}>January - March 2024</p>
+          <h2 style={{ marginBottom: "10px" }}>Prediction Results</h2>
           <BarChart
-            width={760} // Matches container width minus padding
+            width={760}
             height={300}
             data={chartData}
             margin={{ top: 20, right: 20, left: 20, bottom: 20 }}
           >
             <CartesianGrid vertical={false} stroke="var(--border)" />
-            <XAxis dataKey="month" tickLine={false} tickMargin={10} axisLine={false} />
-            <Bar dataKey="desktop" fill="var(--chart-1)" radius={[10, 10, 0, 0]}>
-              <LabelList dataKey="desktop" position="top" offset={10} fontSize={12} />
+            <XAxis dataKey="name" tickLine={false} tickMargin={10} axisLine={false} />
+            <Bar dataKey="value" fill="var(--chart-1)" radius={[10, 10, 0, 0]}>
+              <LabelList dataKey="value" position="top" offset={10} fontSize={12} />
             </Bar>
           </BarChart>
-          <div style={{ marginTop: "20px", color: "var(--muted-foreground)" }}>
-            Trending up by 5.2% this quarter
-          </div>
-          <div style={{ color: "var(--foreground)" }}>
-            Showing total visitors for the first quarter
-          </div>
         </div>
       </div>
     </div>
