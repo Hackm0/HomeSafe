@@ -9,9 +9,9 @@ CORS(app)
 
 building_data = batiments.load_buildings_data("methods/data/anneeBatiment.csv")
 
-@app.route("/members", methods=["GET"])
-def members():
-    return jsonify({"members": ["Member1", "Member2", "Member3"]})
+# @app.route("/members", methods=["GET"])
+# def members():
+#     return jsonify({"members": ["Member1", "Member2", "Member3"]})
 
 @app.route('/lebron', methods=['POST'])
 def handle_prediction_request():

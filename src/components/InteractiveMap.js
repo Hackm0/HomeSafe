@@ -93,63 +93,90 @@ const InteractiveMap = () => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-      <div style={{ width: "80%", textAlign: "center", marginBottom: "20px" }}>
-        <h1>Address</h1>
-        <p>Enter your address or click on your home.</p>
-        <form onSubmit={handleInputSubmit} style={{ marginBottom: "20px" }}>
-          <input
-            type="text"
-            value={inputAddress}
-            onChange={handleInputChange}
-            placeholder="Enter an address"
-            style={{
-              width: "60%",
-              padding: "10px",
-              fontSize: "16px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-              marginBottom: "10px"
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#007BFF",
-              color: "white",
-              border: "none",
-              borderRadius: "4px",
-              cursor: "pointer",
-            }}
-          >
-            Search
-          </button>
-        </form>
-        {position && (
-          <div>
-            <h3>Selected Address:</h3>
-            <p>{address || "Fetching address..."}</p>
-            <p>Postal Code: {postalCode || "Fetching postal code..."}</p>
-          </div>
-        )}
+<div
+  style={{
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh",
+  }}
+>
+  <div
+    style={{
+      width: "70%", // Adjusted width for the text and input container
+      textAlign: "center",
+      marginBottom: "20px",
+    }}
+  >
+    <h1>Address</h1>
+    <p>Enter your address or click on your home.</p>
+    <form onSubmit={handleInputSubmit} style={{ marginBottom: "20px" }}>
+      <input
+        type="text"
+        value={inputAddress}
+        onChange={handleInputChange}
+        placeholder="Enter an address"
+        style={{
+          width: "60%",
+          padding: "10px",
+          fontSize: "16px",
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          marginBottom: "10px",
+        }}
+      />
+      <button
+        type="submit"
+        style={{
+          padding: "10px 20px",
+          backgroundColor: "#007BFF",
+          color: "white",
+          border: "none",
+          borderRadius: "4px",
+          cursor: "pointer",
+        }}
+      >
+        Search
+      </button>
+    </form>
+    {position && (
+      <div>
+        <h3>Selected Address:</h3>
+        <p>{address || "Fetching address..."}</p>
+        <p>Postal Code: {postalCode || "Fetching postal code..."}</p>
       </div>
-      <div style={{ width: "80%", height: "50vh", border: "1px solid #ccc" }}>
-        <MapContainer center={[45.5017, -73.5673]} zoom={13} style={{ height: "100%", width: "100%" }}>
-          <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          />
-          <MapClickHandler />
-          <CenterMap position={position} />
-          {position && (
-            <Marker position={position}>
-              <Popup>{address || "Chargement de l'adresse..."}</Popup>
-            </Marker>
-          )}
-        </MapContainer>
-      </div>
-    </div>
+    )}
+  </div>
+  <div
+    style={{
+      width: "60%", // Reduced width for the map container
+      height: "50vh",
+      border: "1px solid #ccc",
+      borderRadius: "8px", // Added rounding for better aesthetics
+      overflow: "hidden", // Ensures no content spills out
+    }}
+  >
+    <MapContainer
+      center={[45.5017, -73.5673]}
+      zoom={13}
+      style={{ height: "100%", width: "100%" }}
+    >
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      />
+      <MapClickHandler />
+      <CenterMap position={position} />
+      {position && (
+        <Marker position={position}>
+          <Popup>{address || "Chargement de l'adresse..."}</Popup>
+        </Marker>
+      )}
+    </MapContainer>
+  </div>
+</div>
+
   );
 };
 

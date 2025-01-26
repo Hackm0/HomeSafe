@@ -94,6 +94,9 @@ firebase-debug.log
 
 # Ignore the virtual environment directory
 venv/
+.venv/
 
 # Ignore pyvenv.cfg inside the virtual environment
 **/pyvenv.cfg
+pyvenv.cfg
+
