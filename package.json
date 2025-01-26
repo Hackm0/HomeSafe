@@ -2,6 +2,7 @@
   "name": "predection",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",
   "dependencies": {
     "axios": "^1.7.9",
     "cra-template": "1.2.0",
