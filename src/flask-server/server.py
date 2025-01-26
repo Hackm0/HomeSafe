@@ -21,11 +21,12 @@ def handle_prediction_request():
 
     latitude = data.get('lat')
     longitude = data.get('lng')
-    
+    postal_code = data.get('postalCode')  # Get the postal code
+
     print(f"Received POST request to /lebron: {data}")
     
-    if latitude is None or longitude is None:
-        return jsonify({"error": "Latitude and longitude are required."}), 400
+    if latitude is None or longitude is None or postal_code is None:
+        return jsonify({"error": "Latitude, longitude, and postal code are required."}), 400
 
     try:
         year_of_construction = batiments.estimate_building_year(latitude, longitude, building_data)
@@ -40,6 +41,7 @@ def handle_prediction_request():
             "message": "Prediction made successfully!",
             "lat": latitude,
             "lng": longitude,
+            "postalCode": postal_code,  # Include postal code in the response
             "confidence": confidence,
             "year_of_construction": year_of_construction
         }), 200  # OK
@@ -48,6 +50,7 @@ def handle_prediction_request():
         # Log and return an error if something fails
         print(f"Error during prediction: {e}")
         return jsonify({"error": "An error occurred during prediction. Please try again."}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True)
