@@ -34,7 +34,7 @@ def handle_prediction_request():
 
         confidence = predict_asbestos(longitude, latitude, year_of_construction)
         
-        print(f"Predicted confidence of asbestos presence: {confidence}")
+        print(f"Predicted confidence of asbestos presence: {confidence} year estimated {year_of_construction}")
 
         return jsonify({
             "message": "Prediction made successfully!",
