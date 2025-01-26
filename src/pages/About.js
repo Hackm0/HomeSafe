@@ -7,7 +7,7 @@ const FlipCard = ({ icon: Icon, title, description }) => {
     <div className="flip-card">
       <div className="flip-card-inner">
         <div className="flip-card-front">
-          <Icon size={32} />
+          <Icon size={64} />
           <h3>{title}</h3>
         </div>
         <div className="flip-card-back">
@@ -48,9 +48,6 @@ const About = () => {
 
   return (
     <div className="about-container">
-      <div className="logo-section">
-        <img src="../logo.png" alt="Company Logo" className="main-logo" />
-      </div>
 
       <div className="concept-text">
         <p>

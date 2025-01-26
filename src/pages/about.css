@@ -4,7 +4,7 @@
     margin: 0 auto;
     padding: 4rem 2rem;
     text-align: center;
-    background-color: #faf7f5;
+    background-color: #e6d5bc;
   }
   
   .logo-section {
@@ -19,7 +19,7 @@
   .concept-text {
     max-width: 700px;
     margin: 0 auto 4rem;
-    color: #4a5568;
+    color:  "var(--card)";
     font-size: 1.2rem;
     line-height: 1.6;
   }
@@ -72,7 +72,7 @@
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    color: #2d3748;
+    color: "var(--card)";
   }
   
   .flip-card-front h3 {
@@ -82,7 +82,7 @@
   }
   
   .flip-card-back {
-    background-color: #3182ce;
+    background-color: #2e6c30;
     color: white;
     transform: rotateY(180deg);
   }

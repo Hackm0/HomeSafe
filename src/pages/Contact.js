@@ -3,10 +3,10 @@ import React from "react"
 export default function Contact() {
   const teamMembers = [
     {
-      name: "Team Member 1",
-      description: "Lead Developer with expertise in full-stack development and cloud architecture.",
+      name: "Olivier Hamel",
+      description: "Étudiant en génie informatique à Polytechnique Montréal",
       image: "/placeholder.svg?height=150&width=150",
-      linkedin: "https://linkedin.com/in/member1",
+      linkedin: "https://www.linkedin.com/in/olivier-hamel/",
     },
     {
       name: "Team Member 2",
@@ -33,7 +33,7 @@ return (
     <div className="bg-white">
       <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-blue-700 mb-4">About Our Team</h1>
+          <h1 className="text-4xl font-bold text-green-700 mb-4">About Our Team</h1>
           <p className="max-w-3xl mx-auto text-xl text-gray-600">
             We are a dedicated team of professionals committed to delivering exceptional solutions. Our diverse
             expertise and collaborative approach enable us to tackle complex challenges and create innovative
@@ -65,7 +65,7 @@ return (
                   href={member.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center mt-3 text-blue-600 hover:text-blue-800"
+                  className="inline-flex items-center mt-3 text-green-600 hover:text-green-800"
                 >
                   Connect on LinkedIn
                   <svg className="ml-2 h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
