@@ -13,7 +13,7 @@ const chartData = [
 const InteractiveMap = () => {
   const [position, setPosition] = useState(null);
   const [address, setAddress] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [postalCode, setPostalCode] = useState(""); // New state for postal code
   const [inputAddress, setInputAddress] = useState("");
 
   const fetchAddress = async (lat, lng) => {
@@ -24,13 +24,13 @@ const InteractiveMap = () => {
       const results = response.data.results;
       if (results && results.length > 0) {
         setAddress(results[0].formatted);
-        setPostalCode(results[0].components.postcode || "Unknown");
+        setPostalCode(results[0].components.partial_postcode); // Extract postal code
         setInputAddress(results[0].formatted);
       } else {
-        setAddress("Address not found.");
+        setAddress("Adresse introuvable.");
       }
     } catch (error) {
-      setAddress("Error retrieving address.");
+      setAddress("Erreur lors de la récupération de l'adresse.");
     }
   };
 
@@ -44,12 +44,26 @@ const InteractiveMap = () => {
         const { lat, lng } = results[0].geometry;
         setPosition([lat, lng]);
         setAddress(results[0].formatted);
-        setPostalCode(results[0].components.postcode || "Unknown");
+        setPostalCode(results[0].components.partial_postcode);
+
+        // Send the coordinates and postal code to the backend
+        const myData = { lat, lng, postalCode: results[0].components.partial_postcode };
+        const result = await fetch("/lebron", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(myData),
+        });
+
+        const resultInJson = await result.json();
+        console.log(resultInJson); // Check the response
+        //setAddress("Prediction complete!");
       } else {
-        setAddress("Coordinates not found.");
+        //setAddress("Adresse introuvable.");
       }
     } catch (error) {
-      setAddress("Error retrieving coordinates.");
+      setAddress("Erreur lors de la récupération de l'adresse.");
     }
   };
 
