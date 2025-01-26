@@ -1,5 +1,6 @@
 import React from "react"
 
+<<<<<<< HEAD:src/pages/Contact.js
 export default function Contact() {
   const teamMembers = [
     {
@@ -81,3 +82,8 @@ return (
   </div>
 )
 }
+=======
+export default function Ressources() {
+  return <h2>Contact Us: We'd love to hear from you!</h2>;
+}
+>>>>>>> 336cc1dfdde8a425ea69a1fafe74b16885cea7fc:src/pages/Ressources.js

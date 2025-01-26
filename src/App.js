@@ -10,6 +10,7 @@ import Radon from "./pages/Radon";
 import Asbestos from "./pages/Asbestos";
 import Lead from "./pages/Lead";
 
+
 function App() {
   const [data, setData] = useState([{}]);
 
@@ -18,8 +19,8 @@ function App() {
       <div className="App">
         <Navbar />
         <header className="App-header">
-          <h1>PREDECTION</h1>
           <h2>Building a Sustainable Future Through Property Insights</h2>
+
         </header>
         <main>
           <Routes>
@@ -29,7 +30,7 @@ function App() {
             <Route path="/Asbestos" element={<Asbestos />} />
             <Route path="/Lead" element={<Lead />} />
             <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/ressources" element={<Ressources />} />
           </Routes>
         </main>
       </div>

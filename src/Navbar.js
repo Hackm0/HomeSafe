@@ -6,10 +6,9 @@ import logo from './logo.png';
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">
-      <img src={logo} alt="Logo" width="auto" height="auto" />
-
-      </div>
+        <a className="navbar-logo spinner" href="/">
+        <img src={logo} alt="Logo" width="250" height="auto" />
+        </a>
       <ul className="navbar-list">
         {/* Internal links using React Router's Link */}
         <li className="nav-item">
@@ -28,12 +27,10 @@ const Navbar = () => {
           <Link to="/about">About</Link>
         </li>
         <li className="nav-item">
-          <Link to="/contact">Contact</Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/services">Services</Link>
+          <Link to="/ressources">Ressources</Link>
         </li>
       </ul>
+      
     </nav>
   );
 };

@@ -30,7 +30,7 @@ def filter_columns(input_file, output_file):
 def quebecOnly(input_file, output_file) :
     data = pd.read_csv(input_file)
 
-    data_quebec = data[data['Ville'] == 'Montréal']
+    data_quebec = data[data['City_Ville'] == 'Montréal']
 
     # Exporter les données filtrées dans un nouveau fichier CSV
     data_quebec.to_csv(output_file, index=False)
