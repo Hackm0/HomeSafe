@@ -1,10 +1,7 @@
-import os
 import pandas as pd
 import joblib
 
-base_dir = os.path.dirname(os.path.abspath(__file__))
-model_path = os.path.join(base_dir, "model", "asbestos_model.pkl")
-model = joblib.load(model_path)
+model = joblib.load("methods/model/asbestos_model.pkl")
 
 # Function to predict confidence for asbestos presence
 def predict_asbestos(lon, lat, year_of_construction):
