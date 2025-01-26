@@ -2,14 +2,14 @@
 
 a {
     text-decoration: none;
-    color: #4CAF50;
+    color: inherit;
+    /* Inherit the color for consistency */
 }
 
 .navbar {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-
     background-color: #1E1E1E;
     padding: 10px 20px;
     color: #4CAF50;
@@ -17,13 +17,25 @@ a {
     width: 100vw;
 }
 
+.navbar-logo {
+    cursor: pointer;
+    transition: transform 0.5s ease;
+    padding-left: 20px;
+    /* Added padding to the left of the logo */
+}
+
 .navbar-logo svg {
-    transform: scale(.9) rotate(0deg);
-    transition: 0.5s;
+    transform: scale(0.95) rotate(0deg);
+    transition: transform 0.5s ease;
+}
+
+.navbar-logo:hover svg {
+    transform: scale(0.95) rotate(1deg);
+    /* Add hover effect to logo */
 }
 
 .spinner:hover {
-    transform: scale(.9) rotate(1deg);
+    transform: scale(0.95) rotate(1deg);
 }
 
 .navbar-list {
@@ -34,7 +46,14 @@ a {
 
 .nav-item {
     cursor: pointer;
-    font-size: 1rem;
-    transition: 0.5s;
-    padding: 10px;
+    font-size: 1.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    padding: 25px;
+}
+
+.nav-item:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+    /* Light background on hover */
+    transform: translateY(-2px);
+    /* Slight lift effect */
 }

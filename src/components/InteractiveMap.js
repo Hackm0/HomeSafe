@@ -1,8 +1,18 @@
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMapEvents, Marker, Popup, useMap } from "react-leaflet";
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 import axios from "axios";
+
+// Override the default icon URL with the correct path
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconUrl: require('leaflet/dist/images/marker-icon.png'),
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
+});
 
 const chartData = [
   { month: "January", desktop: 186 },
