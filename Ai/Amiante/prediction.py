@@ -2,7 +2,7 @@ import pandas as pd
 import joblib
 
 # Load the trained model
-model = joblib.load(r'Ai\model\asbestos_model.pkl')
+model = joblib.load('asbestos_model_2.pkl')
 
 # Function to predict confidence for asbestos presence
 def predict_asbestos(lon, lat, year_of_construction):
