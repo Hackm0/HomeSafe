@@ -18,10 +18,6 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <header className="App-header">
-          <h2>Building a Sustainable Future Through Property Insights</h2>
-
-        </header>
         <main>
           <Routes>
             {/* Define routes for each page */}

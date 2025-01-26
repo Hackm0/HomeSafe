@@ -138,7 +138,7 @@ const InteractiveMap = () => {
         }}
       >
         <div style={{ textAlign: "center" }}>
-          <h1>Address</h1>
+          <h3>Address</h3>
           <p>Enter your address or click on the map.</p>
           <form onSubmit={handleInputSubmit} style={{ marginBottom: "10px" }}>
             <input
