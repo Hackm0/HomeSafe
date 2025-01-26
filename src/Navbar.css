@@ -10,7 +10,7 @@ a {
     justify-content: flex-start;
     align-items: center;
 
-    background-color: #FFFFFF;
+    background-color: #1E1E1E;
     padding: 10px 20px;
     color: #4CAF50;
     font-family: 'Radio Canada', sans-serif;
@@ -18,12 +18,12 @@ a {
 }
 
 .navbar-logo svg {
-    transform: scale(0.75) rotate(0deg);
+    transform: scale(.9) rotate(0deg);
     transition: 0.5s;
 }
 
 .spinner:hover {
-    transform: scale(0.75) rotate(5deg);
+    transform: scale(.9) rotate(1deg);
 }
 
 .navbar-list {
