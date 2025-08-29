@@ -154,7 +154,7 @@ HomeSafe combines multiple data sources and machine learning to provide comprehe
 This project was created during **McHacks 12** by:
 
 - **[MAt1l0rd Tardy](https://github.com/MAt1l0rd)** - Data collection, content creation, and frontend development
-- **[Jason Xa](https://github.com/JasonXa)** - Frontend development, backend integration, Git management, and project submission
+- **[Jason Xa](https://github.com/XaJason)** - Frontend development, backend integration, Git management, and project submission
 - **[Hackm0 Raouj](https://github.com/Hackm0)** - Interactive map integration and API development
 - **[Olivier Hamel](https://github.com/olivier-hamel)** - Additional development support
 
@@ -185,7 +185,7 @@ This project is open source and available under the [MIT License](LICENSE).
 ## 🔗 Links
 
 - **[DevPost Submission](https://devpost.com/software/homesafe-n08b2f)** - Complete project showcase
-- **[Live Demo](#)** - Try HomeSafe online *(coming soon)*
+- **[Live Demo & App Walkthrough](https://www.youtube.com/watch?v=XPUOhvNiOns)** - YouTube demonstration and explanation
 - **[McHacks 12](https://mchacks.ca/)** - The hackathon where HomeSafe was born
 
 ---
